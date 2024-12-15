@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <div class="flex h-screen">
+   <!-- Sidebar -->
+   <div class="w-full md:w-1/4 bg-white border-r border-gray-200 flex flex-col md:block fixed inset-0 md:relative z-20" id="sidebar">
+    <div class="p-4 border-b border-gray-200 flex justify-between items-center md:block">
+     <h1 class="text-xl font-bold">Chat App</h1>
+     <i class="fas fa-times text-2xl md:hidden cursor-pointer" id="closeSidebar"></i>
+    </div>
+    <div class="p-4 flex items-center border-b border-gray-200">
+     <img src="https://storage.googleapis.com/a1aa/image/WNe1oFgTO6VkH6Gr7CvR8FE50cKKNC89DevbIuyVJZPmsL7TA.jpg" alt="User profile picture" class="rounded-full w-10 h-10" />
+     <div class="ml-3">
+      <p class="font-medium">John Doe</p>
+      <p class="text-sm text-gray-500">Online</p>
+     </div>
+    </div>
+    <div class="flex-1 overflow-y-auto">
+     <div class="p-4">
+      <h2 class="text-lg font-semibold mb-2">Chats</h2>
+      <div class="space-y-4" id="userList"></div>
+     </div>
+    </div>
+   </div>
+
+   <!-- Chat Area -->
+   <div class="flex-1 flex flex-col">
+    <div class="p-4 border-b border-gray-200 flex items-center justify-between">
+     <div class="flex items-center">
+      <i class="fas fa-bars text-2xl cursor-pointer md:hidden" id="openSidebar"></i>
+      <img src="https://storage.googleapis.com/a1aa/image/YXeOVOUxbs3SaKuxdHUsVfrqHfs0VVQeG05sig394kWekdZfE.jpg" alt="Chat user profile picture" class="rounded-full w-10 h-10" id="chatUserImage" />
+      <div class="ml-3">
+       <p class="font-medium" id="chatUserName">Alice</p>
+       <p class="text-sm text-gray-500">Online</p>
+      </div>
+     </div>
+     <div class="flex items-center space-x-4">
+      <i class="fas fa-phone text-gray-500"></i>
+      <i class="fas fa-video text-gray-500"></i>
+      <i class="fas fa-ellipsis-v text-gray-500"></i>
+     </div>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4 space-y-4" id="chatArea"></div>
+    <div class="p-4 border-t border-gray-200 flex items-center">
+     <input type="text" id="messageInput" class="flex-1 p-2 border border-gray-300 rounded-lg" placeholder="Type a message..." />
+     <button id="sendMessageButton" class="ml-4 bg-blue-500 text-white p-2 rounded-lg">
+      <i class="fas fa-paper-plane"></i>
+     </button>
+    </div>
+   </div>
+  </div>
+
+  <script>
+    const users = [
+      { name: 'Alice', message: 'Hey, how are you?', img: 'https://placehold.co/40x40', messages: [] },
+      { name: 'Bob', message: 'Let\'s catch up later.', img: 'https://placehold.co/40x40', messages: [] },
+      { name: 'Charlie', message: 'Meeting at 3 PM.', img: 'https://placehold.co/40x40', messages: [] },
+    ];
+
+    let currentUser = users[0];
+    const userList = document.getElementById('userList');
+    const chatArea = document.getElementById('chatArea');
+    const chatUserName = document.getElementById('chatUserName');
+    const chatUserImage = document.getElementById('chatUserImage');
+    const messageInput = document.getElementById('messageInput');
+    const sendMessageButton = document.getElementById('sendMessageButton');
+    const sidebar = document.getElementById('sidebar');
+    const openSidebar = document.getElementById('openSidebar');
+    const closeSidebar = document.getElementById('closeSidebar');
+
+    openSidebar.addEventListener('click', () => {
+      sidebar.classList.remove('hidden');
+    });
+
+    closeSidebar.addEventListener('click', () => {
+      sidebar.classList.add('hidden');
+    });
+
+    users.forEach(user => {
+      const userDiv = document.createElement('div');
+      userDiv.className = 'flex items-center p-2 bg-gray-100 rounded-lg cursor-pointer';
+      userDiv.innerHTML = `
+        <img src="${user.img}" alt="Chat user profile picture" class="rounded-full w-10 h-10" />
+        <div class="ml-3">
+          <p class="font-medium">${user.name}</p>
+          <p class="text-sm text-gray-500">${user.message}</p>
+        </div>
+      `;
+      userDiv.addEventListener('click', () => {
+        currentUser = user;
+        chatUserName.textContent = user.name;
+        chatUserImage.src = user.img;
+        loadChatMessages(user);
+        sidebar.classList.add('hidden');
+      });
+      userList.appendChild(userDiv);
+    });
+
+    sendMessageButton.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    function sendMessage() {
+        const message = messageInput.value.trim();
+        if (message === '') return;
+      
+        const newMessage = {
+          sender: 'me',
+          text: message,
+          timestamp: Date.now()
+        };
+      
+        // Save message to Firebase
+        firebase.database().ref(`chats/${currentUser.name}`).push(newMessage);
+      
+        messageInput.value = '';
+      }
+      
+
+      function loadChatMessages(user) {
+        chatArea.innerHTML = '';
+        
+        // Listen for new messages from Firebase
+        const chatRef = firebase.database().ref(`chats/${user.name}`);
+        chatRef.off(); // Remove previous listeners to avoid duplicates
+        
+        chatRef.on('child_added', (snapshot) => {
+          const msg = snapshot.val();
+          displayMessage(msg.sender, msg.text);
+        });
+      }
+      
+
+      function displayMessage(sender, message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `flex items-start ${sender === 'me' ? 'justify-end' : ''}`;
+        messageDiv.innerHTML = `
+          <div class="${sender === 'me' ? 'bg-blue-500 text-white' : 'bg-white'} p-3 rounded-lg shadow">
+            <p class="text-sm">${message}</p>
+          </div>
+        `;
+        chatArea.appendChild(messageDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }
+      
+
+
+
+    
+  </script>
+ </body>
+</html>
+<script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      databaseURL: "YOUR_DATABASE_URL",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+  
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+  </script>
+  
