@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 12px;
+            transition: .5s;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #4b8a8c;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #3b6e6a;
+            width: 14px;
+        }
+        ::-webkit-scrollbar-thumb:active{
+            background-color: #4b4a9c;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-track:hover {
+            background-color: #d3d3d3;
+            width: 14px;
+        }
+        a {
+            display: inline-block;
+            position: relative;
+          }
+          
+          a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0087ca;
+            transition: transform 0.25s ease-out;
+          }
+          
+          a:hover::after {
+            transform: scaleX(1);
+          }
+          
+          nav a.left::after {
+            transform-origin: bottom right;
+          }
+          
+          nav a.left:hover::after {
+            transform-origin: bottom left;
+          }
+          
+          nav a.center::after {
+            transform-origin: bottom center;
+          }
+          
+          nav a.center:hover::after {
+            transform-origin: bottom center;
+          }
+          
+          nav a.right::after {
+            transform-origin: bottom left;
+          }
+          
+          a.right:hover::after {
+            transform-origin: bottom right;
+          }
+          
+        
+
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-3xl font-bold text-gray-800">My Portfolio</div>
+            <nav class="space-x-4">
+                <a href="#about" class="text-gray-800 ">About</a>
+                <a href="#projects" class="text-gray-800 ">Projects</a>
+                <a href="#skills" class="text-gray-800 ">Skills</a>
+                <a href="#contact" class="text-gray-800 ">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="bg-cover bg-center h-screen" style="background-image: url('https://plus.unsplash.com/premium_photo-1683309565422-77818a287060?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydGZvbGlvJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D')">
+            <div class="container mx-auto px-6 h-full flex items-center justify-center">
+                <div class="text-center">
+                    <h1 class="text-5xl font-bold text-white">Hello, I'm a Pro Developer</h1>
+                    <p class="text-xl text-white mt-4">I build amazing web applications</p>
+                    <a href="#projects" class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">View My Work</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-gray-800 text-center">About Me</h2>
+                <div class="mt-8 flex flex-col md:flex-row items-center">
+                    <img src="https://placehold.co/300x300" alt="Portrait of the developer" class="w-64 h-64 rounded-full mx-auto md:mx-0 md:mr-8"/>
+                    <div class="mt-4 md:mt-0">
+                        <p class="text-gray-600">I am a passionate developer with experience in building web applications using modern technologies. I love to create beautiful and functional user interfaces and solve complex problems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-gray-800 text-center">Projects</h2>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Screenshot of project 1" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Project 1</h3>
+                            <p class="text-gray-600 mt-2">Description of project 1.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Screenshot of project 2" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Project 2</h3>
+                            <p class="text-gray-600 mt-2">Description of project 2.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Screenshot of project 3" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Project 3</h3>
+                            <p class="text-gray-600 mt-2">Description of project 3.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Screenshot of project 4" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Project 4</h3>
+                            <p class="text-gray-600 mt-2">Description of project 4.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Screenshot of project 5" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Project 5</h3>
+                            <p class="text-gray-600 mt-2">Description of project 5.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Screenshot of project 6" class="w-full h-48 object-cover"/>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800">Project 6</h3>
+                            <p class="text-gray-600 mt-2">Description of project 6.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-gray-800 text-center">Skills</h2>
+                <div class="mt-8 space-y-8">
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl font-semibold">JavaScript</div>
+                        <progress class="w-3/4" value="55" max="100"></progress>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl font-semibold">Python</div>
+                        <progress class="w-3/4" value="55" max="100"></progress>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl font-semibold">HTML/CSS</div>
+                        <progress class="w-3/4" value="95" max="100"></progress>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl font-semibold">React</div>
+                        <progress class="w-3/4" value="5" max="100"></progress>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl font-semibold">Node.js</div>
+                        <progress class="w-3/4" value="5" max="100"></progress>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl font-semibold">SQL</div>
+                        <progress class="w-3/4" value="25" max="100"></progress>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-gray-800 text-center">Contact Me</h2>
+                <div class="mt-8 flex justify-center">
+                    <form class="w-full max-w-lg">
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
+                                    Name
+                                </label>
+                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="name" type="text" placeholder="Your Name"/>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
+                                    Email
+                                </label>
+                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" placeholder="Your Email"/>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="message">
+                                    Message
+                                </label>
+                                <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="message" rows="5" placeholder="Your Message"></textarea>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" type="submit">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 py-6">
+        <div class="container mx-auto px-6 text-center text-white">
+            <p>&copy; 2023 My Portfolio. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="https://twitter.com" class="text-white hover:text-gray-400"><i class="fab fa-twitter"></i></a>
+                <a href="https://linkedin.com" class="text-white hover:text-gray-400"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com" class="text-white hover:text-gray-400"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
